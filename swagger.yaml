@@ -59,7 +59,7 @@ paths:
       produces:
       - "application/json"
       consumes:
-      - "application/x-www-form-urlencoded"
+      - "application/json"
       parameters:
       - name: "authorId"
         in: "query"
@@ -116,13 +116,14 @@ paths:
       - "Status"
       summary: "Permet la modification du status si les droits de l'utilisateur (identifié grâce au token) le permettent"
       description: "Permet la modification du status si les droits de l'utilisateur (identifié grâce au token) le permettent, enregistre les modifications dans l'historique et renvoie des notifications aux utilisateurs concernés"
+      parameters:
+      - in: body
+        name: "StatusModification"
+        schema: 
+          $ref: "#/definitions/StatusModification"
       responses:
         "200":
           description: "OK"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/StatusModification"
 definitions:
   Signalement:
     type: "object"
