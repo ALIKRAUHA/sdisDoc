@@ -50,7 +50,6 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/Signalement"
-  /signalement/getSignalement:
     get:
       tags:
       - "Signalements"
@@ -90,7 +89,7 @@ paths:
         in: "query"
         description: "Urgence du signalement"
         type: "string"
-      - name: "date_keyword"
+      - name: "keyword"
         in: "query"
         description: "Permet de filtrer en utilisant un mot clé standard"
         type: "string"
@@ -128,9 +127,67 @@ definitions:
   Signalement:
     type: "object"
     properties:
-      signalementId:
+      id:
         type: "integer"
         format: "int64"
+        description: "correspond également au numéro de ticket"
+      title: 
+        type: "string"
+      status:
+        type: "string"
+        description: "Valeurs dans l'annexe 1"
+      creationDate:
+        type: "string"
+        format: "date-time"
+      updateDate:
+        type: "string"
+        format: "date-time"
+      deadline:
+        type: "string"
+        format: "date-time"
+      category:
+        type: "string"
+        description: "Valeurs dans l'annexe 2"
+      description:
+        type: "string"
+      attachment:
+        type: "array"
+        items:
+          type: "object"
+          properties: 
+            id:
+              type: "string"
+            blob:
+              type: "string"
+      localisation:
+        type: "string"
+        description: "geojson du point"
+      history:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            id:
+              type: "string"
+            modificationType:
+              type: "string"
+            date:
+              type: "string"
+              format: "date-time"
+            author:
+              type: "object"
+              properties: 
+                id:
+                  type: "integer"
+                  format: "int64"
+                name:
+                  type: "string"
+                firstname:
+                  type: "string"
+            description:
+              type: "string"
+            comment:
+              type: "string"
   StatusModification:
       type: "object"
       properties:
