@@ -150,6 +150,56 @@ definitions:
         description: "Valeurs dans l'annexe 2"
       description:
         type: "string"
+      urgency:
+        type: "string"
+      source:
+        type: "string"
+      note:
+        type: "integer"
+        format: "int64"
+      group:
+        type: "object"
+        properties:
+          name: 
+            type: "string"
+          id:
+            type: "integer"
+            format: "int64"
+      manager:
+        type: "object"
+        properties: 
+          id:
+            type: "integer"
+            format: "int64"
+          name:
+            type: "string"
+          firstname:
+            type: "string"
+          averageNote:
+            type: "integer"
+            format: "int64"
+      tags:
+        type: "object"
+        properties:
+          id:
+            type: "integer"
+            format: "int64"
+          name:
+            type: "integer"
+            format: "int64"
+      author:
+        type: "object"
+        properties: 
+          id:
+            type: "integer"
+            format: "int64"
+          name:
+            type: "string"
+          firstname:
+            type: "string"
+          averageNote:
+            type: "integer"
+            format: "int64"
       attachment:
         type: "array"
         items:
