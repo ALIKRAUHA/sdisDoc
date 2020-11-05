@@ -1,0 +1,152 @@
+swagger: "2.0"
+info:
+  description: "Documentation des requêtes de l'API SDIS67"
+  version: "1.0.0"
+  title: "API SDIS67"
+  termsOfService: "http://swagger.io/terms/"
+host: "api.sdis67.fr"
+basePath: "/v1"
+schemes:
+- "https"
+paths:
+  /signalement:
+    post:
+      tags:
+      - "Signalements"
+      summary: "Permet de créer un nouveau signalement"
+      description: "Cette requête permet de créer un nouveau signalement en utilisant les informations passées en paramètres"
+      operationId: "postSignalement"
+      produces:
+      - "application/json"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      parameters:
+      - name: "authorId"
+        in: "query"
+        description: "ID de l'utilisateur qui a créé le ticket"
+        type: "number"
+      - name: "title"
+        in: "query"
+        description: "Titre du signalement"
+        type: "number"
+      - name: "type"
+        in: "query"
+        description: "Type du signalement"
+        type: "string"
+      - name: "emergency"
+        in: "query"
+        description: "Urgence du signalement"
+        type: "string"
+      - name: "tags"
+        in: "query"
+        description: "Tags du signalement"
+        type: "array"
+        items:
+            type: "string"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Signalement"
+  /signalement/getSignalement:
+    get:
+      tags:
+      - "Signalements"
+      summary: "Permet de récupérer l'ensemble des informations des signalements"
+      description: "Cette requête renvoie des objets JSON sérialisés de classe Signalement. Il est possible de filtrer la recherche de signalement en passant des filtres en corps."
+      operationId: "getSignalement"
+      produces:
+      - "application/json"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      parameters:
+      - name: "authorId"
+        in: "query"
+        description: "Permet de filtrer par créateur en donnant un Id d'Utilisateur"
+        type: "number"
+      - name: "assignedGroupId"
+        in: "query"
+        description: "Permet de filtrer par groupe assigné en donnant un Id de Groupe"
+        type: "number"
+      - name: "assignedManagerId"
+        in: "query"
+        description: "Permet de filtrer par Gestionnaire assigné en donnant un Id de Gestionnaire"
+        type: "number"
+      - name: "open"
+        in: "query"
+        description: "L'état du ticket (ouvert:true ou fermé:false)"
+        type: "boolean"
+      - name: "type"
+        in: "query"
+        description: "Type du signalement"
+        type: "string"
+      - name: "status"
+        in: "query"
+        description: "Etat du signalement"
+        type: "string"
+      - name: "emergency"
+        in: "query"
+        description: "Urgence du signalement"
+        type: "string"
+      - name: "date_keyword"
+        in: "query"
+        description: "Permet de filtrer en utilisant un mot clé standard"
+        type: "string"
+      - name: "date"
+        in: "query"
+        description: "Permet de filtrer en utilisant une date format (jj/mm/AAAA)"
+        type: "string"
+      - name: "tags"
+        in: "query"
+        description: "Tags du signalement"
+        type: "array"
+        items:
+            type: "string"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Signalement"
+  /status:
+    put:
+      tags:
+      - "Status"
+      summary: "Permet la modification du status si les droits de l'utilisateur (identifié grâce au token) le permettent"
+      description: "Permet la modification du status si les droits de l'utilisateur (identifié grâce au token) le permettent, enregistre les modifications dans l'historique et renvoie des notifications aux utilisateurs concernés"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/StatusModification"
+definitions:
+  Signalement:
+    type: "object"
+    properties:
+      signalementId:
+        type: "integer"
+        format: "int64"
+  StatusModification:
+      type: "object"
+      properties:
+        reportId:
+          type: "integer"
+          format: "int64"
+        status:
+          type: "string"
+          format: "int64"
+        note:
+          type: "integer"
+          format: "int64"
+        comment:
+          type: "string"
+          format: "date-time"
+
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
